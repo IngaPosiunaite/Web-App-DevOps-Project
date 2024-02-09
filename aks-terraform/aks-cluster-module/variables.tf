@@ -25,12 +25,12 @@ variable "service_principal_client_id" {
   type        = string
 }
 
-variable "service_principal_secret" {
+variable "service_principal_client_secret" {
   description = "Client Secret for the service principal associated with the AKS cluster"
   type        = string
 }
 
-# Output Variables from Networking Module as Input Variables
+# Output Variables 
 
 variable "resource_group_name" {
   description = "Name of the Azure Resource Group where networking resources are deployed"
@@ -51,3 +51,9 @@ variable "worker_node_subnet_id" {
   description = "ID of the worker node subnet within the VNet"
   type        = string
 }
+
+variable "aks_nsg_id" {
+  description = "ID of the aks nsg"
+  type        = string
+}
+

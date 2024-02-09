@@ -1,3 +1,4 @@
+# networking-module/variables.tf
 
 variable "resource_group_name" {
   description = "The name of the Azure Resource Group where networking resources will be deployed"

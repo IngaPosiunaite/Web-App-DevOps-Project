@@ -1,4 +1,4 @@
-# Output Variables for AKS Cluster Module
+# # aks-cluster-module/outputs.tf
 
 output "aks_cluster_name" {
   description = "Name of the provisioned AKS cluster"

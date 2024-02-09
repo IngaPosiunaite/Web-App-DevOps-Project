@@ -1,3 +1,5 @@
+# networking-module/outputs.tf
+
 output "vnet_id" {
   description = "ID of the Virtual Network (VNet)"
   value       = azurerm_virtual_network.aks_vnet.id

@@ -1,3 +1,4 @@
+# networking-module/main.tf
 
 # Create Azure Resource Group
 resource "azurerm_resource_group" "aks_rg" {

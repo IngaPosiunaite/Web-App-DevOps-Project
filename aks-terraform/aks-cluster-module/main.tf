@@ -1,4 +1,5 @@
-# AKS Cluster
+# aks-cluster-module/main.tf
+
 resource "azurerm_kubernetes_cluster" "aks_cluster" {
   name                = var.aks_cluster_name
   location            = var.cluster_location
@@ -14,21 +15,11 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
 
   service_principal {
     client_id     = var.service_principal_client_id
-    client_secret = var.service_principal_secret
+    client_secret = var.service_principal_client_secret
   }
 
-  network_profile {
-    network_plugin    = "azure"
-    service_cidr      = "10.0.0.0/16"
-    dns_service_ip    = "10.0.0.10"
+  # network_profile {
+    # network_plugin    = "azure"
+    # service_cidr      = "10.0.0.0/16"
+    # dns_service_ip    = "10.0.0.10"
   }
-}
-
-# Output Variables
-output "aks_cluster_id" {
-  value = azurerm_kubernetes_cluster.aks_cluster.id
-}
-
-output "aks_cluster_kube_config" {
-  value = azurerm_kubernetes_cluster.aks_cluster.kube_config_raw
-}
