@@ -7,7 +7,8 @@ trigger:
 - main
 
 pool:
-  vmImage: ingeera/webapp
+
+  vmImage: ubuntu-latest
 
 steps:
 - task: Docker@2
@@ -16,5 +17,4 @@ steps:
     repository: 'ingeera/webapp'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    tags: 'docker pull ingeera/webapp:latest'
-
+    tags: 'latest'
