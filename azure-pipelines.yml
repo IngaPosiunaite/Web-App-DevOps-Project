@@ -16,8 +16,9 @@ steps:
 
 - task: KubernetesManifest@1
   inputs:
-        action: 'deploy'
-        connectionType: 'azureResourceManager'
-        azureResourceGroup: 'networking-resource-group'
-        kubernetesCluster: 'terraform-aks-cluster'
-        manifests: 'application-manifest.yaml'
+    action: 'deploy'
+    connectionType: 'azureResourceManager'
+    azureSubscriptionConnection: 'Inga Posiunaite DevOps(1)(72f4c708-97fe-4795-9b32-e00ea053ef67)'
+    azureResourceGroup: 'networking-resource-group'
+    kubernetesCluster: 'terraform-aks-cluster'
+    manifests: 'application-manifest.yaml'
