@@ -178,7 +178,7 @@ kubectl get nodes
 
 We have defined the Deployment and Service manifests to deploy our application on Kubernetes within our AKS cluster.
 
-### Deployment Manifest:
+## Deployment Manifest:
 
 In the Deployment manifest (application-manifest.yaml), we specify the desired state for our application pods, including the number of replicas, container image, ports, and rolling update strategy.
 
