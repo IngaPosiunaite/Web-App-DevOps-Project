@@ -171,4 +171,88 @@ az aks get-credentials --resource-group networking-resource-group --name terrafo
 ```
 kubectl get nodes
 ```
-   
+
+## Kubernetes Deployment with AKS
+
+### Deployment and Service Manifests
+
+We have defined the Deployment and Service manifests to deploy our application on Kubernetes within our AKS cluster.
+
+### Deployment Manifest:
+
+In the Deployment manifest (application-manifest.yaml), we specify the desired state for our application pods, including the number of replicas, container image, ports, and rolling update strategy.
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app-service
+spec:
+  selector:
+    app: flask-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+        - name: flask-app-container
+          image: ingeera/webapp
+          ports:
+            - containerPort: 5000
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+```
+
+### Key concepts:
+
+- **Replicas**: We have configured two replicas to ensure high availability and scalability.
+- **Container Image**: We reference our application container image hosted on Docker Hub.
+- **Ports**: We expose port 5000 within the container for internal communication.
+- **Rolling Update Strategy**: We use a RollingUpdate strategy to update our application seamlessly without downtime.
+
+### Service Manifest:
+
+In the Service manifest within the same application-manifest.yaml file, we define how other pods within the cluster can communicate with our application.
+
+### Key configurations:
+
+- **Selector**: We match the labels specified in the Deployment manifest to route traffic to the correct pods.
+- **Ports**: We expose port 80 internally, which forwards traffic to port 5000 on the pods.
+
+### Deployment Strategy
+
+We have chosen the RollingUpdate deployment strategy for our application. This strategy gradually replaces existing pods with new ones, ensuring that the application remains available during updates. This aligns with our application's requirements for minimal downtime and uninterrupted service for users.
+
+### Testing and Validation
+
+After deployment, we conducted thorough testing and validation to ensure the functionality and reliability of our application within the AKS cluster. 
+
+### Application Distribution Plan
+
+To distribute the application to other internal users within our organization without relying on port forwarding, we plan to:
+
+1. **Create an Ingress Controller**: Set up an Ingress controller to route external traffic to our application securely.
+2. **Configure DNS**: Assign a domain name to the Ingress controller to provide a user-friendly URL for accessing the application.
+3. **Implement RBAC**: Use Role-Based Access Control (RBAC) to manage access to the application based on user roles and permissions.
+4. **Secure External Access**: Implement SSL termination and other security measures to secure external access to the application.
+
+
