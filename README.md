@@ -291,6 +291,5 @@ This document outlines the CI/CD pipeline setup using Azure DevOps for our proje
 - The functionality of the application was thoroughly tested to ensure correct operation within the AKS cluster.
 - Any encountered issues were documented for further analysis and resolution.
 
-## Conclusion
-The CI/CD pipeline in Azure DevOps streamlines the build and deployment process, enabling efficient delivery of our application to the AKS cluster. Continuous testing and validation ensure reliability and functionality of the deployed application.
+
 
