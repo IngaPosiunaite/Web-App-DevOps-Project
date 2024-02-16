@@ -229,7 +229,7 @@ spec:
 - **Ports**: We expose port 5000 within the container for internal communication.
 - **Rolling Update Strategy**: We use a RollingUpdate strategy to update our application seamlessly without downtime.
 
-### Service Manifest:
+## Service Manifest:
 
 In the Service manifest within the same application-manifest.yaml file, we define how other pods within the cluster can communicate with our application.
 
@@ -238,15 +238,15 @@ In the Service manifest within the same application-manifest.yaml file, we defin
 - **Selector**: We match the labels specified in the Deployment manifest to route traffic to the correct pods.
 - **Ports**: We expose port 80 internally, which forwards traffic to port 5000 on the pods.
 
-### Deployment Strategy
+## Deployment Strategy
 
 We have chosen the RollingUpdate deployment strategy for our application. This strategy gradually replaces existing pods with new ones, ensuring that the application remains available during updates. This aligns with our application's requirements for minimal downtime and uninterrupted service for users.
 
-### Testing and Validation
+## Testing and Validation
 
 After deployment, we conducted thorough testing and validation to ensure the functionality and reliability of our application within the AKS cluster. 
 
-### Application Distribution Plan
+## Application Distribution Plan
 
 To distribute the application to other internal users within our organization without relying on port forwarding, we plan to:
 
@@ -255,4 +255,42 @@ To distribute the application to other internal users within our organization wi
 3. **Implement RBAC**: Use Role-Based Access Control (RBAC) to manage access to the application based on user roles and permissions.
 4. **Secure External Access**: Implement SSL termination and other security measures to secure external access to the application.
 
+
+## CI/CD Pipeline with Azure DevOps
+
+### Introduction
+This document outlines the CI/CD pipeline setup using Azure DevOps for our project. The pipeline automates the build and deployment process, ensuring seamless integration and delivery of our application.
+
+## Configuration Details
+### Source Repository
+- GitHub is configured as the source control system.
+- The repository chosen for the pipeline is [Web-App-DevOps-Project].
+
+### Build Pipeline
+- A Starter Pipeline template is used as the foundation.
+- Docker tasks are incorporated to build and push the Docker image to Docker Hub.
+  - Personal access token on Docker Hub is used for authentication.
+  - Docker image is pushed to Docker Hub upon successful build.
+- Pipeline triggers on each push to the main branch of the repository.
+
+### Release Pipeline
+- The Deploy to Kubernetes task is integrated into the release pipeline.
+- AKS service connection is established to facilitate deployment to the AKS cluster.
+- The deployment manifest available in the repository is utilized for deployment.
+- Automatic deployment to the AKS cluster is triggered upon successful build.
+
+### Integration with Docker Hub and AKS
+- Service connections are set up between Azure DevOps and Docker Hub, and Azure DevOps and AKS.
+- Docker Hub service connection utilizes a personal access token for authentication.
+- AKS service connection enables secure deployment to the AKS cluster.
+
+## Validation Steps
+- After configuring the CI/CD pipeline, validation steps were performed to ensure functionality.
+- Monitoring of pod status within the AKS cluster confirmed successful creation.
+- Port forwarding using `kubectl` was initiated to access the application securely.
+- The functionality of the application was thoroughly tested to ensure correct operation within the AKS cluster.
+- Any encountered issues were documented for further analysis and resolution.
+
+## Conclusion
+The CI/CD pipeline in Azure DevOps streamlines the build and deployment process, enabling efficient delivery of our application to the AKS cluster. Continuous testing and validation ensure reliability and functionality of the deployed application.
 
