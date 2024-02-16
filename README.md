@@ -1,5 +1,5 @@
 ## Project Status 
-This project is still in development **02/16/2024**
+"The last two tasks of the project are still in development **02/16/2024**
 
 # Web-App-DevOps-Project
 
