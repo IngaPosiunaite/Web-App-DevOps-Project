@@ -1,5 +1,5 @@
 ## Project Status 
-This project is still in development **01/29/2024**
+This project is still in development **02/16/2024**
 
 # Web-App-DevOps-Project
 
@@ -12,6 +12,14 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Technology Stack](#technology-stack)
 - [Contributors](#contributors)
 - [License](#license)
+- [Containerization with Docker](#containerization-with-Docker)
+- [Terraform Project and Modules](#terraform-project-and-modules)
+- [Kubernetes Deployment with AKS](#kubernetes-deployment-with-aks)
+- [CI/CD Pipeline with Azure DevOps](#ci-cd-pipeline-with-azure-devops)
+- [AKS Cluster Monitoring](#aks-cluster-monitoring)
+- [AKS Integration with Azure Key Vault for Secret Management](#aks-integration-with-azure-key-vault-for-secret-management)
+
+
 
 ## Features
 
@@ -63,3 +71,104 @@ To run the application, you simply need to run the `app.py` script in this repos
 ## License
 
 This project is licensed under the MIT License. For more details, refer to the [LICENSE](LICENSE) file.
+
+## Containerization with Docker
+
+- **Containerization Process**: This section documents the steps taken to containerize the application using Docker. It includes the Dockerfile with explanations for each instruction and details on building and running Docker containers locally.
+
+- **Docker Commands**: Documented commands include building the Docker image, running containers, tagging images, and pushing to Docker Hub. Examples and explanations are provided for each command.
+
+- **Image Information**: Essential information about the Docker image, such as its name, tags, and usage instructions, is documented.
+
+## Terraform Project and Modules
+
+This Terraform module is designed to provision the necessary Azure Networking Services for an Azure Kubernetes Service (AKS) cluster. This project utilizes Terraform to provision an Azure Kubernetes Service (AKS) cluster along with the necessary networking infrastructure. The Infrastructure as Code (IaC) approach ensures a reproducible and scalable deployment.
+
+The project is organized into two Terraform modules:
+
+- **networking-module**: Responsible for provisioning Azure Networking Services.
+- **aks-cluster-module**: Focuses on provisioning the AKS cluster.
+
+The main.tf file in the project directory serves as the main configuration file. It orchestrates the deployment of the AKS cluster and its associated networking resources.
+
+### Azure Provider Setup
+
+The Azure provider block authenticates Terraform to Azure using service principal credentials. These credentials are stored as environment variables to enhance security.
+
+```
+provider "azurerm" {
+  features {}
+
+  client_id       = var.client_id
+  client_secret   = var.client_secret
+  subscription_id = var.subscription_id
+  tenant_id       = var.tenant_id
+}
+```
+### Networking Module Integration
+
+The networking module is integrated into the main configuration file to ensure the creation of essential networking resources for the AKS cluster.
+
+```
+module "networking" {
+  source              = "./networking-module"
+  resource_group_name = "networking-resource-group"
+  location            = "UK South"
+  vnet_address_space  = ["10.0.0.0/16"]
+}
+```
+### Cluster Module Integration
+
+Similarly, the cluster module is integrated to define and provision the AKS cluster within the networking infrastructure.
+
+```
+module "aks_cluster" {
+  source                   = "./aks-cluster-module"
+  cluster_name             = "terraform-aks-cluster"
+  location                 = "UK South"
+  dns_prefix               = "myaks-project"
+  kubernetes_version       = "1.26.6"
+  service_principal_client_id     = var.service_principal_client_id
+  service_principal_secret         = var.service_principal_secret
+  resource_group_name     = module.networking.networking_resource_group_name
+  vnet_id                 = module.networking.vnet_id
+  control_plane_subnet_id = module.networking.control_plane_subnet_id
+  worker_node_subnet_id   = module.networking.worker_node_subnet_id
+  aks_nsg_id              = module.networking.aks_nsg_id
+}
+```
+
+### Input Variables
+
+The following input variables are defined in the variables.tf file to customize various aspects of the AKS cluster:
+
+- **client_id**: Azure service principal client ID
+- **client_secret**: Azure service principal client secret
+- **subscription_id**: Azure subscription ID
+- **tenant_id**: Azure tenant ID
+- **service_principal_client_id**: Client ID for the AKS service principal
+- **service_principal_secret**: Client secret for the AKS service principal
+
+### Usage
+
+1. Initialize the Terraform project:
+
+```
+terraform init
+```
+2. Apply the Terraform configuration:
+
+```
+terraform apply
+```
+3. Retrieve the kubeconfig file:
+
+```
+az aks get-credentials --resource-group networking-resource-group --name terraform-aks-cluster
+```
+4. Verify the AKS cluster connectivity:
+
+```
+kubectl get nodes
+```
+   
