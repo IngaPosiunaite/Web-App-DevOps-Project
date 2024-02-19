@@ -74,6 +74,10 @@ This project is licensed under the MIT License. For more details, refer to the [
 
 ## Containerization with Docker
 
+I successfully encapsulated the application and its dependencies within Docker containers. This ensured accessibility across various teams, regardless of their preferred working environments. Docker containerization provided a flexible and consistent deployment solution, streamlining access and fostering agility and collaboration. 
+
+Additionally, I was responsible for distributing the containerized application, which was successfully achieved using Docker Hub.
+
 - **Containerization Process**: This section documents the steps taken to containerize the application using Docker. It includes the Dockerfile with explanations for each instruction and details on building and running Docker containers locally.
 
 - **Docker Commands**: Documented commands include building the Docker image, running containers, tagging images, and pushing to Docker Hub. Examples and explanations are provided for each command.
