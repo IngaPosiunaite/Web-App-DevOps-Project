@@ -10,14 +10,16 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Features](#features)
 - [Getting Started](#getting-started)
 - [Technology Stack](#technology-stack)
-- [Contributors](#contributors)
-- [License](#license)
+- [DevOps Pipeline Architecture](#devops-pipeline-architecture) 
 - [Containerization with Docker](#containerization-with-Docker)
-- [Terraform Project and Modules](#terraform-project-and-modules)
+- [Defining Networking Services & Creating an AKS cluster with IaC](#defining-networking-services-&-creating-an-aks-cluster-with-iac)
 - [Kubernetes Deployment with AKS](#kubernetes-deployment-with-aks)
 - [CI/CD Pipeline with Azure DevOps](#ci-cd-pipeline-with-azure-devops)
 - [AKS Cluster Monitoring](#aks-cluster-monitoring)
-- [AKS Integration with Azure Key Vault for Secret Management](#aks-integration-with-azure-key-vault-for-secret-management)
+- [AKS Integration with Azure Key Vault for Secret Management](#aks-integration-with-azure-key-vault-for-secret-management
+- [Contributors](#contributors)
+- [License](#license)
+
 
 
 
@@ -72,6 +74,8 @@ To run the application, you simply need to run the `app.py` script in this repos
 
 This project is licensed under the MIT License. For more details, refer to the [LICENSE](LICENSE) file.
 
+## DevOps Pipeline Architecture
+
 ## Containerization with Docker
 
 I successfully encapsulated the application and its dependencies within Docker containers. This ensured accessibility across various teams, regardless of their preferred working environments. Docker containerization provided a flexible and consistent deployment solution, streamlining access and fostering agility and collaboration. 
@@ -84,7 +88,7 @@ Additionally, I was responsible for distributing the containerized application, 
 
 - **Image Information**: Essential information about the Docker image, such as its name, tags, and usage instructions, is documented.
 
-## Terraform Project and Modules
+## Defining Networking Services & Creating an AKS cluster with IaC
 
 This Terraform module is designed to provision the necessary Azure Networking Services for an Azure Kubernetes Service (AKS) cluster. This project utilizes Terraform to provision an Azure Kubernetes Service (AKS) cluster along with the necessary networking infrastructure. The Infrastructure as Code (IaC) approach ensures a reproducible and scalable deployment.
 
