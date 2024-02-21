@@ -16,7 +16,7 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Kubernetes Deployment with AKS](#kubernetes-deployment-with-aks)
 - [CI/CD Pipeline with Azure DevOps](#ci-cd-pipeline-with-azure-devops)
 - [AKS Cluster Monitoring](#aks-cluster-monitoring)
-- [AKS Integration with Azure Key Vault for Secret Management](#aks-integration-with-azure-key-vault-for-secret-management
+- [AKS Integration with Azure Key Vault for Secret Management](#aks-integration-with-azure-key-vault-for-secret-management)
 - [Contributors](#contributors)
 - [License](#license)
 
