@@ -94,32 +94,64 @@ The task involved building an end-to-end DevOps pipeline to support our organiza
 We successfully encapsulated the application and its dependencies within Docker containers. This ensured accessibility across various teams, regardless of their preferred working environments. Docker containerization provided a flexible and consistent deployment solution, streamlining access and fostering agility and collaboration.
 
 ### Containerization Process
+
 The application was containerized using Docker to ensure consistent deployment across environments. Below are the steps taken in the containerization process:
 
-- **Base Image Selection**: An official Python runtime image (python:3.8-slim) was chosen as the parent image to build upon.
-- **Working Directory Setup**: The working directory within the container was set to '/app' using the WORKDIR instruction.
-- **Application Files Copy**: The application files were copied into the container using the COPY instruction, ensuring they are available for execution.
-- **System Dependencies Installation**: System dependencies and the ODBC driver were installed to meet application requirements. 
-- **Pip and Setuptools Installation**: Pip and setuptools were installed to manage Python package installations within the container.
-- **Python Packages Installation**: Python packages specified in the 'requirements.txt' file were installed using the pip install command.
-- **Azure Identity and Azure Key Vault Libraries Installation**: Azure Identity and Azure Key Vault libraries were installed to facilitate secure communication with Azure Key Vault.
-- **Port Exposition**: Port 5000 was exposed to allow external access to the application.
-- **Startup Command Definition**: The startup command was defined to execute the application ('app.py') within the container using Python.
+- **Base Image Selection**: 
+  - An official Python runtime image (`python:3.8-slim`) was chosen as the parent image to build upon.
+  
+- **Working Directory Setup**: 
+  - The working directory within the container was set to `/app` using the `WORKDIR` instruction.
+  
+- **Application Files Copy**: 
+  - The application files were copied into the container using the `COPY` instruction, ensuring they are available for execution.
+  
+- **System Dependencies Installation**: 
+  - System dependencies and the ODBC driver were installed to meet application requirements. 
+
+- **Pip and Setuptools Installation**: 
+  - Pip and setuptools were installed to manage Python package installations within the container.
+
+- **Python Packages Installation**: 
+  - Python packages specified in the `requirements.txt` file were installed using the `pip install` command.
+
+- **Azure Identity and Azure Key Vault Libraries Installation**: 
+  - Azure Identity and Azure Key Vault libraries were installed to facilitate secure communication with Azure Key Vault.
+
+- **Port Exposition**: 
+  - Port `5000` was exposed to allow external access to the application.
+
+- **Startup Command Definition**: 
+  - The startup command was defined to execute the application (`app.py`) within the container using Python.
 
 ### Docker Commands
+
 The following Docker commands were utilized during the containerization process:
 
-- **Build Command**: docker build -t <image_name>:<tag> . - Builds a Docker image using the Dockerfile in the current directory.
-- **Run Command**: docker run -p <host_port>:<container_port> <image_name>:<tag> - Runs a Docker container based on the specified image, exposing it on a specified host port.
-- **Tagging Command**: docker tag <source_image>:<source_tag> <target_image>:<target_tag> - Tags a Docker image with a new name and/or tag.
-- **Push Command**: docker push <image_name>:<tag> - Pushes a Docker image to a Docker registry, such as Docker Hub.
+- **Build Command**: 
+  - `docker build -t <image_name>:<tag> .` - Builds a Docker image using the Dockerfile in the current directory.
+  
+- **Run Command**: 
+  - `docker run -p <host_port>:<container_port> <image_name>:<tag>` - Runs a Docker container based on the specified image, exposing it on a specified host port.
+
+- **Tagging Command**: 
+  - `docker tag <source_image>:<source_tag> <target_image>:<target_tag>` - Tags a Docker image with a new name and/or tag.
+
+- **Push Command**: 
+  - `docker push <image_name>:<tag>` - Pushes a Docker image to a Docker registry, such as Docker Hub.
 
 ### Image Information
-- **Image Name**: python-webapp
-- **Tags**: latest
+
+- **Image Name**: `python-webapp`
+- **Tags**: `latest`
+
 ### Usage Instructions:
-- **Build the Docker image**: docker build -t python-webapp:latest .
-- **Run the Docker container**: docker run -p 5000:5000 python-webapp:latest
+
+- **Build the Docker image**: 
+  - `docker build -t python-webapp:latest .`
+
+- **Run the Docker container**: 
+  - `docker run -p 5000:5000 python-webapp:latest`
 
 ## Defining Networking Services & Creating an AKS cluster with IaC
 
