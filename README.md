@@ -1,6 +1,3 @@
-## Project Status 
-The last two tasks of the project are still in development **02/16/2024**
-
 # Web-App-DevOps-Project
 
 Welcome to the Web App DevOps Project repo! This application allows you to efficiently manage and track orders for a potential business. It provides an intuitive user interface for viewing existing orders and adding new ones.
@@ -19,8 +16,6 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [AKS Integration with Azure Key Vault for Secret Management](#aks-integration-with-azure-key-vault-for-secret-management)
 - [Contributors](#contributors)
 - [License](#license)
-
-
 
 
 ## Features
