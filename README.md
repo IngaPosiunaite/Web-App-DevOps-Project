@@ -267,19 +267,9 @@ We have chosen the RollingUpdate deployment strategy for our application. This s
 
 After deployment, we conducted thorough testing and validation to ensure the functionality and reliability of our application within the AKS cluster. 
 
-## Application Distribution Plan
-
-To distribute the application to other internal users within our organization without relying on port forwarding, we plan to:
-
-1. **Create an Ingress Controller**: Set up an Ingress controller to route external traffic to our application securely.
-2. **Configure DNS**: Assign a domain name to the Ingress controller to provide a user-friendly URL for accessing the application.
-3. **Implement RBAC**: Use Role-Based Access Control (RBAC) to manage access to the application based on user roles and permissions.
-4. **Secure External Access**: Implement SSL termination and other security measures to secure external access to the application.
-
-
 ## CI/CD Pipeline with Azure DevOps
 
-### Introduction
+### Overview
 This document outlines the CI/CD pipeline setup using Azure DevOps for our project. The pipeline automates the build and deployment process, ensuring seamless integration and delivery of our application.
 
 ## Configuration Details
@@ -311,6 +301,61 @@ This document outlines the CI/CD pipeline setup using Azure DevOps for our proje
 - Port forwarding using `kubectl` was initiated to access the application securely.
 - The functionality of the application was thoroughly tested to ensure correct operation within the AKS cluster.
 - Any encountered issues were documented for further analysis and resolution.
+
+## AKS Cluster Monitoring
+
+- **Enabled Container Insights for the AKS cluster**, facilitating real-time performance and diagnostic data collection.
+- **Configured Metrics Explorer charts and Log Analytics** to monitor crucial metrics and logs, enhancing visibility into cluster performance and health.
+- **Implemented alert rules** to proactively detect and respond to potential issues, ensuring optimal AKS cluster operation.
+
+
+## AKS Integration with Azure Key Vault for Secret Management
+
+### Azure Key Vault Setup
+
+### Creation: An Azure Key Vault instance was created to securely store sensitive information. 
+
+### Configuration:
+
+Access policies were configured to define permissions for accessing and managing secrets.
+
+### Permissions:
+
+- **Users and service principals** were assigned specific roles within Azure Key Vault:
+- **Key Vault Administrator**: [Username/Service Principal Name]
+- **Key Vault Contributor**: [Username/Service Principal Name]
+
+### Secrets Stored in Key Vault
+
+### Database Connection Strings:
+
+- **server-name**: Hostname or IP address of the database server.
+- **server-username**: Username for accessing the database server.
+- **server-password**: Password for the database server authentication.
+- **database-name**: Name of the database to connect to.
+
+### Modifications to Application Code
+The application code was modified to incorporate managed identity credentials for secure retrieval of database connection details from Azure Key Vault. Additionally, the instructions in a Dockerfile where added to install Azure Identity and Azure Key Vault libraries using pip, enhancing the application's ability to securely communicate with Azure Key Vault for managing secrets.
+
+```
+# Sample code snippet demonstrating integration with Azure Key Vault
+
+from azure.identity import ManagedIdentityCredential
+from azure.keyvault.secrets import SecretClient
+
+# Set up Azure Key Vault client with Managed Identity
+
+credential = ManagedIdentityCredential()
+secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
+
+# Fetch secrets from Azure Key Vault
+
+server = secret_client.get_secret("server-name").value
+username = secret_client.get_secret("server-username").value
+password = secret_client.get_secret("server-password").value
+database = secret_client.get_secret("database-name").value
+
+```
 
 ## Contributors 
 
