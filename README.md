@@ -66,15 +66,28 @@ To run the application, you simply need to run the `app.py` script in this repos
 
 - **Database:** The application employs an Azure SQL Database as its database system to store order-related data.
 
-## Contributors 
-
-- [Maya Iuga]([https://github.com/yourusername](https://github.com/maya-a-iuga))
-
-## License
-
-This project is licensed under the MIT License. For more details, refer to the [LICENSE](LICENSE) file.
 
 ## DevOps Pipeline Architecture
+
+My task involved building an end-to-end DevOps pipeline to support our organization's internal web application, focusing on delivery management. Here's what I've accomplished:
+
+- **Version Control**: Implemented version control to enable collaborative development, ensuring the consistency and reliability of our codebase.
+
+- **Docker Packaging**: Utilized Docker to package the application and its dependencies, enhancing consistency and portability across different environments.
+
+
+![DevOps Pipeline Architecture2](https://github.com/IngaPosiunaite/Web-App-DevOps-Project/assets/119749457/063ab78b-9f88-41f1-85e4-6507c9cd46eb)
+
+- **Container Registry**: Leveraged Docker Hub as our preferred container registry, providing easy access to the containerized application.
+
+- **Infrastructure as Code (IaC)**: Employed infrastructure as code to define and manage Azure resources, including Key Vaults, ensuring enhanced security and infrastructure reliability.
+
+- **Kubernetes Orchestration**: Utilized Kubernetes for orchestrating the deployment of our containerized application, ensuring reliability and scalability.
+
+- **CI/CD Practices**: Implemented CI/CD practices to automate the build and deployment processes, streamlining our development pipeline for improved efficiency and reliability.
+
+- **Monitoring**: Integrated Azure Monitor to monitor our application, enabling proactive management and optimization.
+
 
 ## Containerization with Docker
 
@@ -299,5 +312,12 @@ This document outlines the CI/CD pipeline setup using Azure DevOps for our proje
 - The functionality of the application was thoroughly tested to ensure correct operation within the AKS cluster.
 - Any encountered issues were documented for further analysis and resolution.
 
+## Contributors 
+
+- [Maya Iuga]([https://github.com/yourusername](https://github.com/maya-a-iuga))
+
+## License
+
+This project is licensed under the MIT License. For more details, refer to the [LICENSE](LICENSE) file.
 
 
