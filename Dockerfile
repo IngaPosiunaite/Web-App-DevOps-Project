@@ -29,6 +29,10 @@ RUN pip install --upgrade pip setuptools
 
 RUN pip install --trusted-host pypi.python.org -r requirements.txt 
 
+# Install Azure Identity and Azure Key Vault libraries
+
+RUN pip install azure-identity azure-keyvault-secrets
+
 # Expose port 
 
 EXPOSE 5000

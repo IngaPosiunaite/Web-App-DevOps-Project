@@ -3,38 +3,49 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import create_engine
+from azure.identity import ManagedIdentityCredential
+from azure.keyvault.secrets import SecretClient
 import pyodbc
 import os
 
 # Initialise Flask App
 app = Flask(__name__)
 
-# database connection 
-server = 'devops-project-server.database.windows.net'
-database = 'orders-db'
-username = 'maya'
-password = 'AiCore1237'
-driver= '{ODBC Driver 18 for SQL Server}'
+key_vault_url = "https://key-vault-aicore.vault.azure.net/"
 
-# Create the connection string
-connection_string=f'Driver={driver};\
-    Server=tcp:{server},1433;\
-    Database={database};\
-    Uid={username};\
-    Pwd={password};\
-    Encrypt=yes;\
-    TrustServerCertificate=no;\
-    Connection Timeout=30;'
+# Set up Azure Key Vault client with Managed Identity
+credential = ManagedIdentityCredential()
+secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
 
-# Create the engine to connect to the database
-engine = create_engine("mssql+pyodbc:///?odbc_connect={}".format(connection_string))
-engine.connect()
+try:
+    # Fetch secrets from Azure Key Vault
+    server = secret_client.get_secret("server-name").value
+    username = secret_client.get_secret("server-username").value
+    password = secret_client.get_secret("server-password").value
+    database = secret_client.get_secret("database-name").value
+    
+    # Create the connection string
+    driver = '{ODBC Driver 18 for SQL Server}'  # Define the ODBC driver
+    connection_string = f'Driver={driver};\
+        Server=tcp:{server},1433;\
+        Database={database};\
+        Uid={username};\
+        Pwd={password};\
+        Encrypt=yes;\
+        TrustServerCertificate=no;\
+        Connection Timeout=30;'
 
-# Create the Session
-Session = sessionmaker(bind=engine)
-
-# Define the Order data model
-Base = declarative_base()
+    # Create the engine to connect to the database
+    engine = create_engine("mssql+pyodbc:///?odbc_connect={}".format(connection_string))
+    
+    # Define the Session
+    Session = sessionmaker(bind=engine)
+    
+    # Define the Order data model
+    Base = declarative_base()
+    
+except Exception as e:
+    print(f"Failed to fetch secrets from Azure Key Vault: {e}")
 
 class Order(Base):
     __tablename__ = 'orders'
