@@ -97,21 +97,13 @@ We successfully encapsulated the application and its dependencies within Docker 
 The application was containerized using Docker to ensure consistent deployment across environments. Below are the steps taken in the containerization process:
 
 - **Base Image Selection**: An official Python runtime image (python:3.8-slim) was chosen as the parent image to build upon.
-
 - **Working Directory Setup**: The working directory within the container was set to '/app' using the WORKDIR instruction.
-
 - **Application Files Copy**: The application files were copied into the container using the COPY instruction, ensuring they are available for execution.
-
 - **System Dependencies Installation**: System dependencies and the ODBC driver were installed to meet application requirements. 
-
 - **Pip and Setuptools Installation**: Pip and setuptools were installed to manage Python package installations within the container.
-
 - **Python Packages Installation**: Python packages specified in the 'requirements.txt' file were installed using the pip install command.
-
 - **Azure Identity and Azure Key Vault Libraries Installation**: Azure Identity and Azure Key Vault libraries were installed to facilitate secure communication with Azure Key Vault.
-
 - **Port Exposition**: Port 5000 was exposed to allow external access to the application.
-
 - **Startup Command Definition**: The startup command was defined to execute the application ('app.py') within the container using Python.
 
 ### Docker Commands
@@ -135,8 +127,8 @@ This Terraform module is designed to provision the necessary Azure Networking Se
 
 The project is organized into two Terraform modules:
 
-- **networking-module**: Responsible for provisioning Azure Networking Services.
-- **aks-cluster-module**: Focuses on provisioning the AKS cluster.
+1. **networking-module**: Responsible for provisioning Azure Networking Services.
+2. **aks-cluster-module**: Focuses on provisioning the AKS cluster.
 
 The main.tf file in the project directory serves as the main configuration file. It orchestrates the deployment of the AKS cluster and its associated networking resources.
 
@@ -227,7 +219,7 @@ kubectl get nodes
 
 We have defined the Deployment and Service manifests to deploy our application on Kubernetes within our AKS cluster.
 
-## Deployment Manifest:
+### Deployment Manifest:
 
 In the Deployment manifest (application-manifest.yaml), we specify the desired state for our application pods, including the number of replicas, container image, ports, and rolling update strategy.
 
@@ -272,13 +264,12 @@ spec:
 ```
 
 ### Key concepts:
-
 - **Replicas**: We have configured two replicas to ensure high availability and scalability.
 - **Container Image**: We reference our application container image hosted on Docker Hub.
 - **Ports**: We expose port 5000 within the container for internal communication.
 - **Rolling Update Strategy**: We use a RollingUpdate strategy to update our application seamlessly without downtime.
 
-## Service Manifest:
+### Service Manifest:
 
 In the Service manifest within the same application-manifest.yaml file, we define how other pods within the cluster can communicate with our application.
 
@@ -287,11 +278,11 @@ In the Service manifest within the same application-manifest.yaml file, we defin
 - **Selector**: We match the labels specified in the Deployment manifest to route traffic to the correct pods.
 - **Ports**: We expose port 80 internally, which forwards traffic to port 5000 on the pods.
 
-## Deployment Strategy
+### Deployment Strategy
 
 We have chosen the RollingUpdate deployment strategy for our application. This strategy gradually replaces existing pods with new ones, ensuring that the application remains available during updates. This aligns with our application's requirements for minimal downtime and uninterrupted service for users.
 
-## Testing and Validation
+### Testing and Validation
 
 After deployment, we conducted thorough testing and validation to ensure the functionality and reliability of our application within the AKS cluster. 
 
@@ -328,7 +319,6 @@ After deployment, we conducted thorough testing and validation to ensure the fun
 - Any encountered issues were documented for further analysis and resolution.
 
 ## AKS Cluster Monitoring
-
 - **Enabled Container Insights for the AKS cluster**, facilitating real-time performance and diagnostic data collection.
 - **Configured Metrics Explorer charts and Log Analytics** to monitor crucial metrics and logs, enhancing visibility into cluster performance and health.
 - **Implemented alert rules** to proactively detect and respond to potential issues, ensuring optimal AKS cluster operation.
@@ -336,45 +326,36 @@ After deployment, we conducted thorough testing and validation to ensure the fun
 
 ## AKS Integration with Azure Key Vault for Secret Management
 
-### Azure Key Vault Setup
+## Azure Key Vault Setup
 
-Creation: An Azure Key Vault instance was created to securely store sensitive information. 
-
-### Configuration:
-
-Access policies were configured to define permissions for accessing and managing secrets.
-
-### Permissions:
-
-- **Users and service principals** were assigned specific roles within Azure Key Vault:
-- **Key Vault Administrator**: [Username/Service Principal Name]
-- **Key Vault Contributor**: [Username/Service Principal Name]
+- **Creation**: An Azure Key Vault instance was created to securely store sensitive information.  
+- **Configuration**: Access policies were configured to define permissions for accessing and managing secrets.  
+- **Permissions**:
+  - **Users and service principals** were assigned specific roles within Azure Key Vault:
+    - **Key Vault Administrator**: [Username/Service Principal Name]
+    - **Key Vault Contributor**: [Username/Service Principal Name]
 
 ### Secrets Stored in Key Vault
 
-Database Connection Strings:
-
-- **server-name**: Hostname or IP address of the database server.
-- **server-username**: Username for accessing the database server.
-- **server-password**: Password for the database server authentication.
-- **database-name**: Name of the database to connect to.
+- **Database Connection Strings**:
+  - **server-name**: Hostname or IP address of the database server.
+  - **server-username**: Username for accessing the database server.
+  - **server-password**: Password for the database server authentication.
+  - **database-name**: Name of the database to connect to.
 
 ### Modifications to Application Code
 The application code was modified to incorporate managed identity credentials for secure retrieval of database connection details from Azure Key Vault. 
 
 ```
 # Sample code snippet demonstrating integration with Azure Key Vault
-
 from azure.identity import ManagedIdentityCredential
 from azure.keyvault.secrets import SecretClient
 
 # Set up Azure Key Vault client with Managed Identity
-
 credential = ManagedIdentityCredential()
 secret_client = SecretClient(vault_url=key_vault_url, credential=credential)
 
 # Fetch secrets from Azure Key Vault
-
 server = secret_client.get_secret("server-name").value
 username = secret_client.get_secret("server-username").value
 password = secret_client.get_secret("server-password").value
