@@ -69,7 +69,7 @@ To run the application, you simply need to run the `app.py` script in this repos
 
 ## DevOps Pipeline Architecture
 
-My task involved building an end-to-end DevOps pipeline to support our organization's internal web application, focusing on delivery management. Here's what I've accomplished:
+The task involved building an end-to-end DevOps pipeline to support our organization's internal web application, focusing on delivery management. Here's what we have accomplished:
 
 - **Version Control**: Implemented version control to enable collaborative development, ensuring the consistency and reliability of our codebase.
 
@@ -91,7 +91,7 @@ My task involved building an end-to-end DevOps pipeline to support our organizat
 
 ## Containerization with Docker
 
-I successfully encapsulated the application and its dependencies within Docker containers. This ensured accessibility across various teams, regardless of their preferred working environments. Docker containerization provided a flexible and consistent deployment solution, streamlining access and fostering agility and collaboration.
+We successfully encapsulated the application and its dependencies within Docker containers. This ensured accessibility across various teams, regardless of their preferred working environments. Docker containerization provided a flexible and consistent deployment solution, streamlining access and fostering agility and collaboration.
 
 ### Containerization Process
 The application was containerized using Docker to ensure consistent deployment across environments. Below are the steps taken in the containerization process:
