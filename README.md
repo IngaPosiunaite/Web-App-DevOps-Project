@@ -72,20 +72,14 @@ To run the application, you simply need to run the `app.py` script in this repos
 The task involved building an end-to-end DevOps pipeline to support our organization's internal web application, focusing on delivery management. Here's what we have accomplished:
 
 - **Version Control**: Implemented version control to enable collaborative development, ensuring the consistency and reliability of our codebase.
-
 - **Docker Packaging**: Utilized Docker to package the application and its dependencies, enhancing consistency and portability across different environments.
-
 
 ![DevOps Pipeline Architecture2](https://github.com/IngaPosiunaite/Web-App-DevOps-Project/assets/119749457/063ab78b-9f88-41f1-85e4-6507c9cd46eb)
 
 - **Container Registry**: Leveraged Docker Hub as our preferred container registry, providing easy access to the containerized application.
-
 - **Infrastructure as Code (IaC)**: Employed infrastructure as code to define and manage Azure resources, including Key Vaults, ensuring enhanced security and infrastructure reliability.
-
 - **Kubernetes Orchestration**: Utilized Kubernetes for orchestrating the deployment of our containerized application, ensuring reliability and scalability.
-
 - **CI/CD Practices**: Implemented CI/CD practices to automate the build and deployment processes, streamlining our development pipeline for improved efficiency and reliability.
-
 - **Monitoring**: Integrated Azure Monitor to monitor our application, enabling proactive management and optimization.
 
 
