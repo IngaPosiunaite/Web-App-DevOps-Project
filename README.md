@@ -118,7 +118,7 @@ The following Docker commands were utilized during the containerization process:
 
 - **Run the Docker container**: `docker run -p 5000:5000 python-webapp:latest`
 
-## Defining Networking Services & Creating an AKS cluster with IaC
+## Defining Networking Services & Creating an AKS cluster with Terraform
 
 This Terraform module is designed to provision the necessary Azure Networking Services for an Azure Kubernetes Service (AKS) cluster. This project utilizes Terraform to provision an Azure Kubernetes Service (AKS) cluster along with the necessary networking infrastructure.
 
