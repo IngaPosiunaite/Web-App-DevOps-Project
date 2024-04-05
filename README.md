@@ -9,7 +9,7 @@ Welcome to the Web App DevOps Project repo! This application allows you to effic
 - [Technology Stack](#technology-stack)
 - [DevOps Pipeline Architecture](#devops-pipeline-architecture) 
 - [Containerization with Docker](#containerization-with-Docker)
-- [Defining Networking Services & Creating an AKS cluster with IaC](#defining-networking-services-&-creating-an-aks-cluster-with-iac)
+- [Defining Networking Services & Creating an AKS cluster with Terraform](#defining-networking-services-&-creating-an-aks-cluster-with-terraform)
 - [Kubernetes Deployment with AKS](#kubernetes-deployment-with-aks)
 - [CI/CD Pipeline with Azure DevOps](#ci-cd-pipeline-with-azure-devops)
 - [AKS Cluster Monitoring](#aks-cluster-monitoring)
