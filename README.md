@@ -133,48 +133,14 @@ The main.tf file in the project directory serves as the main configuration file.
 
 The Azure provider block authenticates Terraform to Azure using service principal credentials. These credentials are stored as environment variables to enhance security.
 
-```
-provider "azurerm" {
-  features {}
-
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  subscription_id = var.subscription_id
-  tenant_id       = var.tenant_id
-}
-```
 ### Networking Module Integration
 
 The networking module is integrated into the main configuration file to ensure the creation of essential networking resources for the AKS cluster.
 
-```
-module "networking" {
-  source              = "./networking-module"
-  resource_group_name = "networking-resource-group"
-  location            = "UK South"
-  vnet_address_space  = ["10.0.0.0/16"]
-}
-```
 ### Cluster Module Integration
 
 Similarly, the cluster module is integrated to define and provision the AKS cluster within the networking infrastructure.
 
-```
-module "aks_cluster" {
-  source                   = "./aks-cluster-module"
-  cluster_name             = "terraform-aks-cluster"
-  location                 = "UK South"
-  dns_prefix               = "myaks-project"
-  kubernetes_version       = "1.26.6"
-  service_principal_client_id     = var.service_principal_client_id
-  service_principal_secret         = var.service_principal_secret
-  resource_group_name     = module.networking.networking_resource_group_name
-  vnet_id                 = module.networking.vnet_id
-  control_plane_subnet_id = module.networking.control_plane_subnet_id
-  worker_node_subnet_id   = module.networking.worker_node_subnet_id
-  aks_nsg_id              = module.networking.aks_nsg_id
-}
-```
 
 ### Input Variables
 
@@ -219,46 +185,6 @@ We have defined the Deployment and Service manifests to deploy our application o
 ### Deployment Manifest:
 
 In the Deployment manifest (application-manifest.yaml), we specify the desired state for our application pods, including the number of replicas, container image, ports, and rolling update strategy.
-
-```
-apiVersion: v1
-kind: Service
-metadata:
-  name: flask-app-service
-spec:
-  selector:
-    app: flask-app
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 5000
-  type: ClusterIP
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: flask-app-deployment
-spec:
-  replicas: 2
-  selector:
-    matchLabels:
-      app: flask-app
-  template:
-    metadata:
-      labels:
-        app: flask-app
-    spec:
-      containers:
-        - name: flask-app-container
-          image: ingeera/webapp
-          ports:
-            - containerPort: 5000
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-```
 
 ### Key concepts:
 - **Replicas**: We have configured two replicas to ensure high availability and scalability.
