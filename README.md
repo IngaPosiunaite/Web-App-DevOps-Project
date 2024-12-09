@@ -62,7 +62,7 @@ To run the application, you simply need to run the `app.py` script in this repos
 - **Database:** The application employs an Azure SQL Database as its database system to store order-related data.
 
 
-## DevOps Pipeline Architecture
+## Azure DevOps Pipeline Architecture
 
 The task involved building an end-to-end DevOps pipeline to support our organization's internal web application, focusing on delivery management. Here's what I have accomplished:
 
